@@ -10,13 +10,13 @@ session = Session()
 # Tabela Agendamentos.
 class Agendamentos(Base):
     __tablename__ = "Agendamentos"
-    ID = Column(Integer, autoincrement=True, primary_key=True)
-    STATUS = Column(String)
-    FORNECEDOR = Column(String)
-    TIPO = Column(String)
-    DATA = Column(String)
-    CHEGADA = Column(String)
-    SAIDA = Column(String)
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    status = Column(String)
+    fornecedor = Column(String)
+    tipo = Column(String)
+    data = Column(String)
+    chegada = Column(String)
+    saida = Column(String)
 
 def add_agendamento(
     status:str,
@@ -28,12 +28,12 @@ def add_agendamento(
 ):
     try:
         session.add(Agendamentos(
-        STATUS = status,
-        FORNECEDOR = fornecedor,
-        TIPO = tipo,
-        DATA = data,
-        CHEGADA = chegada,
-        SAIDA = saida
+        status = status,
+        fornecedor = fornecedor,
+        tipo = tipo,
+        data = data,
+        chegada = chegada,
+        saida = saida
         ))
         session.commit()
     except PendingRollbackError:
@@ -46,6 +46,7 @@ def rem_agendamento(id_agendamento):
     if query:
         session.delete(query)
         session.commit()
+
 
 # Tabela Clientes.
 class Clientes(Base):

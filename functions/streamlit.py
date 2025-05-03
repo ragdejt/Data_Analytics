@@ -7,7 +7,7 @@ def streamlit_page(
     icone_da_pagina:Optional[str] = None,
     layout_da_pagina:Optional[Literal["centered", "wide"]] = "wide",
     status_barra_lateral:Optional[Literal["auto", "expanded", "collapsed"]] = "expanded",
-    opcao_barra_lateral:Optional[List[str]] = ["Adicionar", "Remover", "Visualizar"],
+    opcao_barra_lateral:Optional[List[str]] = ["Adicionar", "Remover", "Editar", "Visualizar"],
 ):  
     """
     Configura e renderiza uma página Streamlit.
@@ -34,22 +34,35 @@ def streamlit_page(
         streamlit.sidebar.divider()
         match option:
             case "Adicionar":
-                streamlit.title("``Adicionar``")
+                streamlit.divider()
+                streamlit.title(":green[Adicionar]")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
+                streamlit.divider()
+                
             case "Remover":
-                streamlit.title("``Remover``")
+                streamlit.divider()
+                streamlit.title(":green[Remover]")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
+                streamlit.divider()
+
+            case "Editar":
+                streamlit.divider()
+                streamlit.title(":green[Editar]")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
+                streamlit.divider()
+
             case "Visualizar":
                 import pandas
                 from sqlalchemy import text
                 from sql.base import engine
-                streamlit.title("``Visualizar``")
+                streamlit.title(":green[Visualizar]")
                 query = f"SELECT * FROM {titulo_da_pagina}"
                 df = pandas.read_sql_query(sql=text(query), con=engine)
                 streamlit.dataframe(df)
 
 
         if streamlit.sidebar.button("Desconectar", use_container_width=True):
-            print("Disconnecting! [...]")
-
+            print("Disconnecting! [...]")            
             streamlit.session_state["login"] = False
             streamlit.rerun()
         return option

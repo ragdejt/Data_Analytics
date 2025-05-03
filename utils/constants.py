@@ -10,18 +10,74 @@ SQL_FOLDER = SCRIPT_FOLDER / ("Bancos de dados SQL")
 
 EXCEL_FOLDER = SCRIPT_FOLDER / ("Tabelas de dados Excel")
 
-
-
 CARGO_TYPE = ["Ultra Congelado", "Congelado", "Resfriado", "Seco"]
 
 APPOINTMENT_STATUS = ["Em andamento", "Concluido", "Pendente"]
 
+MONTHS = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+]
+
 STATES_CITIES = {
-    "São Paulo":["São Paulo", "Campinas", "Hortolândia", "Sumaré"],
-    "Rio de janeiro":["Rio de janeiro"],
-    "Santa Catarina":[""],
-    "Minas Gerais":[""],
-    "Rio grande do norte":[""],
+    "São Paulo":[
+        "São Paulo",
+        "Guarulhos",
+        "Campinas",
+        "São Bernardo do Campo",
+        "Santo André",
+        "Osasco",
+        "Sorocaba",
+        "Ribeirão Preto",
+        "São José dos Campos",
+        "São José do Rio Preto"
+    ],
+    "Rio de janeiro":[
+       "Rio de Janeiro",
+        "São Gonçalo",
+        "Duque de Caxias",
+        "Nova Iguaçu",
+        "Campos dos Goytacazes",
+        "Belford Roxo",
+        "Niterói",
+        "São João de Meriti",
+        "Petrópolis",
+        "Volta Redonda"
+    ],
+    "Santa Catarina":[
+        "Joinville",
+        "Florianópolis",
+        "Blumenau",
+        "São José",
+        "Chapecó",
+        "Itajaí",
+        "Criciúma",
+        "Jaraguá do Sul",
+        "Palhoça",
+        "Lages"
+    ],
+    "Minas Gerais":[
+        "Belo Horizonte",
+        "Uberlândia",
+        "Contagem",
+        "Juiz de Fora",
+        "Montes Claros",
+        "Betim",
+        "Uberaba",
+        "Ribeirão das Neves",
+        "Governador Valadares",
+        "Divinópolis"
+    ],
 }
 
 NATIONALITY = [

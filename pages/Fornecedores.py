@@ -38,3 +38,6 @@ match fornecedores:
             )
     case "Remover":
         pass
+    case "Editar":
+        pass
+    

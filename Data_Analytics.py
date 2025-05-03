@@ -3,16 +3,18 @@ from rich import print
 from sql.base import create_table
 from utils.constants import *
 from functions.streamlit import streamlit_page
+from functions.plotly import Graph2dLine, Graph3dLine
 
 DataAnalytics = streamlit_page(
-    opcao_barra_lateral=[])
+    opcao_barra_lateral=[],
+    icone_da_pagina=":material/info:"
+    )
 
 if "login" in streamlit.session_state and streamlit.session_state["login"]:
     match DataAnalytics:
         case _:
-            streamlit.header("Transforme dados em :green[Decisões estratégicas]!")
-            streamlit.markdown("Centralize informações, automatize processos e ganhe eficiência operacional com relatórios em tempo real.")  
-            streamlit.write()
+            streamlit.header("Transforme dados em :green[Decisões estratégicas]!", divider="green")
+            streamlit.write("Centralize informações, automatize processos e ganhe eficiência operacional com relatórios em tempo real.")  
 
             streamlit.write("Isso não é futurismo é ``DataAnalytics``")
             
@@ -78,43 +80,43 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
             with column2:
                 with streamlit.expander("❌ Desvantagens"):
                     streamlit.write("``Desorganização e Perda de Informações``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Sem um sistema, os dados da empresa costumam ficar espalhados em planilhas, anotações manuais ou arquivos soltos.
                     Isso aumenta as chances de perda de informações importantes e dificulta o controle geral, prejudicando a eficiência do negócio.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Tomada de Decisões Lenta e Pouco Confiável``")
-                    streamlit.info("""
+                    streamlit.error("""
                     A ausência de relatórios automatizados faz com que as decisões sejam baseadas em informações desatualizadas ou incompletas.
                     Aumentando o risco de escolhas erradas que podem gerar prejuízos para a empresa.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Maior Risco de Erros Manuais``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Sem automação, o processo de cadastro, controle de estoque e emissão de relatórios depende do preenchimento manual, o que abre espaço para falhas humanas.
                     Como digitação errada, duplicidade de dados ou perda de registros.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Controle de Estoque Ineficiente``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Sem um sistema, o acompanhamento de entradas e saídas de produtos é falho e impreciso!
                     O que pode gerar tanto falta de produtos essenciais quanto excesso de estoque parado, aumentando custos e desperdícios.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Baixa Produtividade da Equipe``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Sem a automação de tarefas rotineiras, os colaboradores perdem muito tempo com processos manuais e repetitivos. 
                     O que reduz a produtividade e desvia o foco de atividades realmente importantes para o crescimento da empresa.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Dificuldade de Acesso e Atualização de Dados``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Sem uma interface web, o acesso aos dados fica restrito a computadores específicos! 
                     Dificultando a consulta de informações em tempo real e impedindo o monitoramento remoto, especialmente em situações de urgência.               
                     """)
                     streamlit.divider()
                     streamlit.write("``Falta de Relatórios Confiáveis para Análises e Auditorias``")
-                    streamlit.info("""
+                    streamlit.error("""
                     Empresas que não utilizam sistemas estruturados enfrentam dificuldade para gerar relatórios detalhados! 
                     Prejudicando o acompanhamento do desempenho, o planejamento estratégico e a transparência em auditorias.               
                     """)
@@ -153,6 +155,498 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     pass
                 streamlit.divider()
             
+            streamlit.header(":green[Graficos de desempenho de processos logisticos]", divider="green")
+            coluna1, coluna2 = streamlit.columns(2)
+            with coluna1:
+                with streamlit.expander("Graficos 2d"):
+                    streamlit.write("``TMD - Tempo Médio de Descarga``")
+                    data1={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph1 = Graph2dLine(
+                        df=data1,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TMD",
+                        subtitulo="Tempo Médio de Descarga"
+                    )
+                    streamlit.plotly_chart(graph1)
+                    streamlit.info("Identifica gargalos no processo de descarregamento.")
+                    streamlit.divider()
+
+                    streamlit.write("``Número de Veículos Atendidos por Hora/Dia``")
+                    data2={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph2 = Graph2dLine(
+                        df=data2,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico VAD",
+                        subtitulo="Número de Veículos Atendidos por Dia"
+                    )
+                    streamlit.plotly_chart(graph2)
+                    streamlit.info("Mostra se a equipe/doca está operando em ritmo ideal.")
+                    streamlit.divider()
+
+                    streamlit.write("``Atrasos no Agendamento``")
+                    data3={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph3 = Graph2dLine(
+                        df=data3,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico de Atrasos",
+                        subtitulo="Horas de atraso após o agendamento"
+                    )
+                    streamlit.plotly_chart(graph3)
+
+                    streamlit.info("Impacta a programação de motoristas e a eficiência logística.")
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Rejeição no Recebimento``")
+                    data4={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph4 = Graph2dLine(
+                        df=data4,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TRR",
+                        subtitulo="Taxa de Rejeição no Recebimento"
+                    )
+                    streamlit.plotly_chart(graph4)
+                    streamlit.info("Afeta a qualidade do estoque e pode indicar problemas no transporte.")
+                    streamlit.divider()
+
+                    streamlit.write("``TMC - Tempo Médio de Conferência``")
+                    data5={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph5 = Graph2dLine(
+                        df=data5,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TMC",
+                        subtitulo="Tempo Médio de Conferência"
+                    )
+                    streamlit.plotly_chart(graph5)
+                    streamlit.info("Pode revelar lentidão em processos de conferência")
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo de Espera na Fila de Descarga``")
+                    data6={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph6 = Graph2dLine(
+                        df=data6,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TEFD",
+                        subtitulo="Tempo de Espera na Fila de Descarga"
+                    )
+                    streamlit.plotly_chart(graph6)
+                    streamlit.info("Avalia o tempo ocioso dos veículos aguardando início da operação.")
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo Total de Permanência do Veículo no CD``")
+                    data7={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph7 = Graph2dLine(
+                        df=data7,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TPV",
+                        subtitulo="Tempo Total de Permanência do Veículo no CD"
+                    )
+                    streamlit.plotly_chart(graph7)
+                    streamlit.info("Soma de espera, descarga, conferência e saída. Indica eficiência geral.")
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Ocupação da Doca``")
+                    data8={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph8 = Graph2dLine(
+                        df=data8,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TOC",
+                        subtitulo="Taxa de Ocupação de Doca"
+                    )
+                    streamlit.plotly_chart(graph8)
+                    streamlit.info("Mede quanto tempo as docas estão ocupadas, útil para balancear turnos e recursos.")
+                    streamlit.divider()
+
+                    streamlit.write("``Produtividade por Operador ou Equipe``")
+                    data9={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph9 = Graph2dLine(
+                        df=data9,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico PP-E",
+                        subtitulo="Produtividade por Operador ou Equipe"
+                    )
+                    streamlit.plotly_chart(graph9)
+                    streamlit.info("Ajuda a identificar colaboradores com baixa ou alta performance.")
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo Médio de Abertura de Portão até a Doca``")
+                    data10={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph10 = Graph2dLine(
+                        df=data10,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TMA-P/D",
+                        subtitulo="Tempo Médio de Abertura de Portão até a Doca"
+                    )
+                    streamlit.plotly_chart(graph10)
+                    streamlit.info("Pode revelar gargalos no acesso interno ao CD.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Utilização de Agendamentos``")
+                    data11={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph11 = Graph2dLine(
+                        df=data11,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TUA",
+                        subtitulo="Taxa de Utilização de Agendamentos"
+                    )
+                    streamlit.plotly_chart(graph11)
+                    streamlit.info("Compara agendamentos previstos com os realizados. Alta taxa pode indicar boa aderência.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Desvios de Janela de Agendamento (Adiantos/Atrasos)``")
+                    data12={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph12 = Graph2dLine(
+                        df=data12,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico DJA",
+                        subtitulo="Desvios de Janela de Agendamento"
+                    )
+                    streamlit.plotly_chart(graph12)
+                    streamlit.info("Permite avaliar a pontualidade dos fornecedores e transportadoras.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Reentrega ou Devolução de Carga``")
+                    data13={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph13 = Graph2dLine(
+                        df=data13,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico RDC",
+                        subtitulo="Taxa de Reentrega ou Devolução de Carga"
+                    )
+                    streamlit.plotly_chart(graph13)
+                    streamlit.info("Pode apontar falhas na conferência ou transporte.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo de Conferência x Tipo de Produto``")
+                    data14={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+                    graph14 = Graph2dLine(
+                        df=data14,
+                        X="X",
+                        Y="Y",
+                        titulo="Grafico TCxP",
+                        subtitulo="Tempo de Conferência x Tipo de Produto"
+                    )
+                    streamlit.plotly_chart(graph14)
+                    streamlit.info("Útil para entender a complexidade por categoria (Ultra congelado, Congelado, Resfriado, Seco")
+        
+            with coluna2:
+                
+                with streamlit.expander("Graficos 3d"):
+                    streamlit.write("``TMD - Tempo Médio de Descarga``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="",
+                        subtitulo=""
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Identifica gargalos no processo de descarregamento.")
+                    
+                    streamlit.divider()
+
+                    streamlit.write("``Número de Veículos Atendidos por Dia``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico VAD",
+                        subtitulo="Número de Veículos Atendidos por Dia"
+                    )
+                    streamlit.plotly_chart(graph3d)
+
+                    streamlit.info("Mostra se a equipe/doca está operando em ritmo ideal.")
+                    streamlit.divider()
+
+                    streamlit.write("``Atrasos no Agendamento``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico de Atrasos",
+                        subtitulo="Horas de atraso após o agendamento"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Impacta a programação de motoristas e a eficiência logística.")
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Rejeição no Recebimento``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TRR",
+                        subtitulo="Taxa de Rejeição no Recebimento"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Afeta a qualidade do estoque e pode indicar problemas no transporte.")
+                    streamlit.divider()
+
+                    streamlit.write("``TMC - Tempo Médio de Conferência``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TMC",
+                        subtitulo="Tempo Médio de Conferência"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Pode revelar lentidão em processos de conferência")
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo de Espera na Fila de Descarga``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TEFD",
+                        subtitulo="Tempo de Espera na Fila de Descarga"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Avalia o tempo ocioso dos veículos aguardando início da operação.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo Total de Permanência do Veículo no CD``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TPV",
+                        subtitulo="Tempo Total de Permanência do Veículo no CD"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Soma de espera, descarga, conferência e saída. Indica eficiência geral.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Ocupação da Doca``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TOD",
+                        subtitulo="Taxa de Ocupação da Doca"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Mede quanto tempo as docas estão ocupadas, útil para balancear turnos e recursos.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Produtividade por Operador ou Equipe``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico PO/E",
+                        subtitulo="Produtividade por Operador ou Equipe"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Ajuda a identificar colaboradores com baixa ou alta performance.")
+
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo Médio de Abertura de Portão até a Doca``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TMA-PD",
+                        subtitulo="Tempo Médio de Abertura de Portão até a Doca"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Pode revelar gargalos no acesso interno ao CD.")
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Utilização de Agendamentos``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TUA",
+                        subtitulo="Taxa de Utilização de Agendamentos"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Compara agendamentos previstos com os realizados. Alta taxa pode indicar boa aderência.")
+                    streamlit.divider()
+
+                    streamlit.write("``Desvios de Janela de Agendamento (Adiantos/Atrasos)``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico DJA",
+                        subtitulo="Desvios de Janela de Agendamento"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Permite avaliar a pontualidade dos fornecedores e transportadoras.")
+                    streamlit.divider()
+
+                    streamlit.write("``Taxa de Reentrega ou Devolução de Carga``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico R/D",
+                        subtitulo="Taxa de Reentrega ou Devolução de Carga"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Pode apontar falhas na conferência ou transporte.")
+                    streamlit.divider()
+
+                    streamlit.write("``Tempo de Conferência x Tipo de Produto``")
+                    data={
+                        "X":MONTHS,
+                        "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                    }
+
+                    graph3d = Graph3dLine(
+                        df=data1,
+                        X=MONTHS,
+                        Y="Y",
+                        Z="Y",
+                        titulo="Grafico TCxP",
+                        subtitulo="Tempo de Conferência x Tipo de Produto"
+                    )
+                    streamlit.plotly_chart(graph3d)
+                    streamlit.info("Útil para entender a complexidade por categoria (Ultra congelado, Congelado, Resfriado, Seco")
+                    
 else:
     print("".center(119, "-"))
     print("[green]DataAnalytics[/green]".center(119, " "))
