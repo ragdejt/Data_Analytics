@@ -1,4 +1,7 @@
+import pandas
 import streamlit
+from sqlalchemy import text
+from sql.base import engine
 from utils.constants import *
 from typing import Optional, Literal, List
 
@@ -24,12 +27,6 @@ def streamlit_page(
     streamlit.title(f":green[{titulo_da_pagina}]")
 
     if "login" in streamlit.session_state and streamlit.session_state["login"]:
-        filter = []
-        search = streamlit.sidebar.text_input(label="Procurar", placeholder="Palavra-chave...")
-
-        for i in opcao_barra_lateral:
-            if search in i:
-                filter.append(i)
         option = streamlit.sidebar.selectbox(
         label=titulo_da_pagina,
         options=opcao_barra_lateral,
@@ -40,29 +37,25 @@ def streamlit_page(
             case "Adicionar":
                 streamlit.divider()
                 streamlit.title(":green[Adicionar]")
-                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
-                streamlit.divider()
+                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
                 
             case "Remover":
                 streamlit.divider()
                 streamlit.title(":green[Remover]")
-                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
-                streamlit.divider()
+                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
 
             case "Editar":
                 streamlit.divider()
                 streamlit.title(":green[Editar]")
-                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria``")
-                streamlit.divider()
+                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
 
             case "Visualizar":
-                import pandas
-                from sqlalchemy import text
-                from sql.base import engine
+                streamlit.divider()
                 streamlit.title(":green[Visualizar]")
                 query = f"SELECT * FROM {titulo_da_pagina}"
                 df = pandas.read_sql_query(sql=text(query), con=engine)
                 streamlit.dataframe(df)
+
 
         if streamlit.sidebar.button("Desconectar", use_container_width=True):
             print("Disconnecting! [...]")            

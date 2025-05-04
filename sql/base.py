@@ -49,16 +49,14 @@ def rem_agendamento(id_agendamento):
 # Tabela Clientes.
 class Clientes(Base):
     __tablename__ = "Clientes"
-    Id = Column(Integer, autoincrement=True, primary_key=True)
-    Nome = Column(String)
-    CNPJ = Column(String, unique=True)
-    Rua = Column(String)
-    Numero = Column(String)
-    Bairro = Column(String)
-    Cidade = Column(String)
-    Telefone = Column(String)
-    Email = Column(String)
-    Responsavel = Column(String)
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    nome = Column(String, unique=True)
+    cnpj = Column(String, unique=True)
+    endereco = Column(String)
+    estado = Column(String)
+    cidade = Column(String)
+    telefone = Column(String)
+    email = Column(String)
 
 # Tabela Conferências.
 class Conferencias(Base):
