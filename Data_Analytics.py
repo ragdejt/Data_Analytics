@@ -367,7 +367,8 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                 streamlit.plotly_chart(graph14)
                 streamlit.info("Útil para entender a complexidade por categoria (Ultra congelado, Congelado, Resfriado, Seco")
                     
-else:
+else:  
+    
 
     SCRIPT_FOLDER.mkdir(exist_ok=True)
     SQL_FOLDER.mkdir(exist_ok=True)

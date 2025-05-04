@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.exc import PendingRollbackError
 from utils.constants import SQL_FOLDER
 Base = declarative_base()
-engine = create_engine(f"sqlite:///{SQL_FOLDER / "DataAnalytics.db"}", echo=True)
+engine = create_engine(f'sqlite:///{SQL_FOLDER / "DataAnalytics.db"}', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
 
