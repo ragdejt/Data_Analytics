@@ -1,7 +1,8 @@
-from sqlalchemy import create_engine, Column, String, Integer
-from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy.exc import PendingRollbackError
 from utils.constants import SQL_FOLDER
+from sqlalchemy.exc import PendingRollbackError
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import create_engine, Column, String, Integer
+
 Base = declarative_base()
 engine = create_engine(f'sqlite:///{SQL_FOLDER / "DataAnalytics.db"}', echo=True)
 Session = sessionmaker(bind=engine)
@@ -39,14 +40,11 @@ def add_agendamento(
     except PendingRollbackError:
         session.rollback()
 
-
-
 def rem_agendamento(id_agendamento):
     query = session.query(Agendamentos).get(id_agendamento)
     if query:
         session.delete(query)
         session.commit()
-
 
 # Tabela Clientes.
 class Clientes(Base):
@@ -79,7 +77,7 @@ class Estoques(Base):
     categoria = Column(String) # Ultra Congelado, Congelado, Resfriado, Seco.
 
 # Tabela Expedições.
-class Expedicoes(Base):
+class Expedições(Base):
     __tablename__ = "Expedições"
     Id = Column(Integer, autoincrement=True, primary_key=True)
 
@@ -258,16 +256,12 @@ class Separacoes(Base):
     Data_Hora_Fim = Column(String)
     Status = Column(String) # Concluido, Pendente, Em andamento.
 
-
-
 def get_suppliers_id():
     data = session.query(Fornecedores.NOME).all()
     data_list = []
     for id in data:
         data_list.append(id[0])
     return data_list
-
-
 
 def create_table():
     Base.metadata.create_all(engine)

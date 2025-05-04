@@ -1,6 +1,6 @@
 import streamlit
-from typing import Optional, Literal, List
 from utils.constants import *
+from typing import Optional, Literal, List
 
 def streamlit_page(
     titulo_da_pagina:Optional[str] = SCRIPT_NAME,
@@ -21,10 +21,8 @@ def streamlit_page(
         initial_sidebar_state=status_barra_lateral,
     )
 
-    
     streamlit.title(f":green[{titulo_da_pagina}]")
 
-    
     if "login" in streamlit.session_state and streamlit.session_state["login"]:
         option = streamlit.sidebar.selectbox(
         label=titulo_da_pagina,
@@ -59,7 +57,6 @@ def streamlit_page(
                 query = f"SELECT * FROM {titulo_da_pagina}"
                 df = pandas.read_sql_query(sql=text(query), con=engine)
                 streamlit.dataframe(df)
-
 
         if streamlit.sidebar.button("Desconectar", use_container_width=True):
             print("Disconnecting! [...]")            
