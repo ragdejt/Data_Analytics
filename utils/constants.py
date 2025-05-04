@@ -2,7 +2,7 @@ from pathlib import Path
 
 USER_HOME = Path.home()
 
-SCRIPT_NAME = "Data_Analytics"
+SCRIPT_NAME = "Data_Analytics-1.0.0"
 
 SCRIPT_FOLDER = USER_HOME / (SCRIPT_NAME)
 
