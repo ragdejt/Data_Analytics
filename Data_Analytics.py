@@ -372,5 +372,3 @@ else:
     EXCEL_FOLDER.mkdir(exist_ok=True)
     create_table()
     print("".center(100, "-"))
-
-
