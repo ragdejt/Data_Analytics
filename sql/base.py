@@ -8,7 +8,6 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Tabela Agendamentos.
-print("Consultando Tabela SQL - Agendamentos")
 class Agendamentos(Base):
     __tablename__ = "Agendamentos"
     id = Column(Integer, autoincrement=True, primary_key=True)

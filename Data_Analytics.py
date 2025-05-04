@@ -2,7 +2,7 @@ import streamlit
 from sql.base import create_table
 from utils.constants import *
 from functions.streamlit import streamlit_page
-from functions.plotly import Graph2dLine, Graph3dLine
+from functions.plotly import Graph2dLine
 
 DataAnalytics = streamlit_page(
     opcao_barra_lateral=[],
@@ -368,10 +368,11 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     
 else:
     print("Starting Application! [...]")
+    print("Searching for files needed to run application! [...]")
     SCRIPT_FOLDER.mkdir(exist_ok=True)
     SQL_FOLDER.mkdir(exist_ok=True)
     EXCEL_FOLDER.mkdir(exist_ok=True)
     create_table()
-    
+    print("".center(119, "-"))
 
 
