@@ -1,5 +1,4 @@
 import streamlit
-from rich import print
 from sql.base import create_table
 from utils.constants import *
 from functions.streamlit import streamlit_page
@@ -648,26 +647,9 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     streamlit.info("Útil para entender a complexidade por categoria (Ultra congelado, Congelado, Resfriado, Seco")
                     
 else:
-    print("".center(119, "-"))
-    print("[green]DataAnalytics[/green]".center(119, " "))
-    print("".center(119, "-"))
-
-    print("Searching for necessary files! [...]\n")
-    try:
         SCRIPT_FOLDER.mkdir(exist_ok=True)
         SQL_FOLDER.mkdir(exist_ok=True)
         EXCEL_FOLDER.mkdir(exist_ok=True)
-    except PermissionError:
-        raise
-    else:
-        print(f"{SCRIPT_FOLDER}")
-        print(f"{SQL_FOLDER}")
-        print(f"{EXCEL_FOLDER}")
-    finally:
-
-        print("".center(119, "-"))
-        print("Creating SQL tables if not exists! [...]\n")
         create_table()
         
-        print("".center(119, "-"))
 
