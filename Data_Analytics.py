@@ -373,6 +373,6 @@ else:
     SQL_FOLDER.mkdir(exist_ok=True)
     EXCEL_FOLDER.mkdir(exist_ok=True)
     create_table()
-    print("".center(119, "-"))
+    print("".center(100, "-"))
 
 
