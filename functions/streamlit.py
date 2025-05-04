@@ -24,6 +24,12 @@ def streamlit_page(
     streamlit.title(f":green[{titulo_da_pagina}]")
 
     if "login" in streamlit.session_state and streamlit.session_state["login"]:
+        filter = []
+        search = streamlit.sidebar.text_input(label="Procurar", placeholder="Palavra-chave...")
+
+        for i in opcao_barra_lateral:
+            if search in i:
+                filter.append(i)
         option = streamlit.sidebar.selectbox(
         label=titulo_da_pagina,
         options=opcao_barra_lateral,
