@@ -36,18 +36,18 @@ def streamlit_page(
         match option:
             case "Adicionar":
                 streamlit.divider()
-                streamlit.title(":green[Adicionar]")
-                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
+                streamlit.subheader(":green[Adicionar]", divider="green")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``")
                 
             case "Remover":
                 streamlit.divider()
-                streamlit.title(":green[Remover]")
-                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
+                streamlit.subheader(":green[Remover]", divider="green")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``")
 
             case "Editar":
                 streamlit.divider()
-                streamlit.title(":green[Editar]")
-                streamlit.subheader("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``", divider="green")
+                streamlit.subheader(":green[Editar]", divider="green")
+                streamlit.write("``Todas as alterações realizadas por meio desta interface são automaticamente registradas em logs de auditoria!``")
 
             case "Visualizar":
                 streamlit.divider()
@@ -57,7 +57,7 @@ def streamlit_page(
                 streamlit.dataframe(df)
 
 
-        if streamlit.sidebar.button("Desconectar", use_container_width=True):
+        if streamlit.sidebar.button("Desconectar", icon=":material/logout:", use_container_width=True):
             print("Disconnecting! [...]")            
             streamlit.session_state["login"] = False
             streamlit.rerun()
@@ -73,47 +73,36 @@ def streamlit_page(
         """)
         streamlit.divider()
 
-        with streamlit.expander("Iniciar sessão"):
+        with streamlit.expander("Iniciar sessão", expanded=True):
             usuario = streamlit.text_input("Usuario", placeholder="Digite o nome de usuario")
             senha = streamlit.text_input("Senha", type="password", placeholder="Digite a senha de usuario")
     
-            if streamlit.button("Conectar", use_container_width=True):
+            if streamlit.button("Conectar", icon=":material/login:", use_container_width=True):
                 streamlit.session_state["login"] = True
                 streamlit.session_state["usuario"] = usuario
                 streamlit.rerun()
-            else:
-                streamlit.toast("Usuario ou senha não encontrado!")
-                streamlit.error("Usuario ou senha não encontrado!")
 
         with streamlit.expander("Entre em contato com o administrador do sistema caso acredite que isso seja um erro."):
-            streamlit.title("``Formulario``")
+            streamlit.subheader("``Formulário``", divider="green")
             streamlit.text_input(
                 label="Nome completo",
-                type="default",
-                help="Full name.",
                 placeholder="Digite o nome completo."
             )
             streamlit.text_input(
                 label="Assunto",
-                type="default",
-                help="Subject.",
                 placeholder="Digite o motivo para o contato."
             )
             streamlit.text_input(
                 label="E-mail",
-                type="default",
-                help="E-mail.",
                 placeholder="Digite o e-mail."
             )
             streamlit.text_area(
                 label="Corpo do e-mail",
-                help="E-mail body.",
                 placeholder="Digite a mensagem que deseja encaminhar."
             )
-
-            if streamlit.button("Enviar"):
+            if streamlit.button("Enviar", use_container_width=True):
                 pass
-            streamlit.title("``Importante``")
+            streamlit.subheader("``Importante``", divider="green")
             streamlit.info("""
             1. Use sempre um e-mail válido e atualizado para facilitar a recuperação.
             2. Se não encontrar o e-mail, aguarde alguns minutos ou verifique a pasta de spam.
