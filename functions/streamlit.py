@@ -83,7 +83,7 @@ def streamlit_page(
                 streamlit.rerun()
 
         with streamlit.expander("Entre em contato com o administrador do sistema caso acredite que isso seja um erro."):
-            streamlit.subheader("``Formulário``", divider="green")
+            streamlit.subheader(":green[Formulário para contato]", divider="green")
             streamlit.text_input(
                 label="Nome completo",
                 placeholder="Digite o nome completo."

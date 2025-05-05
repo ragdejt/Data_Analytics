@@ -12,10 +12,10 @@ DataAnalytics = streamlit_page(
 if "login" in streamlit.session_state and streamlit.session_state["login"]:
     match DataAnalytics:
         case _:
-            streamlit.header("Transforme dados em :green[Decisões estratégicas]!", divider="green")
+            streamlit.header("Transforme dados em :green[Decisões estratégicas]", divider="green")
             streamlit.write("Centralize informações, automatize processos e ganhe eficiência operacional com relatórios em tempo real.")  
 
-            streamlit.write("Isso não é futurismo é ``DataAnalytics``")
+            streamlit.write("Isso não é futurismo é :green[DataAnalytics]!")
             
             with streamlit.expander("Porque Data Analytics ?"):
                 streamlit.info("""
@@ -35,7 +35,7 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                 """)
             column1, column2 = streamlit.columns(2)
             with column1:
-                with streamlit.expander("✔️ Vantagens"):
+                with streamlit.expander("✔️ :green[Vantagens]"):
                     streamlit.write("``Organização e Centralização de Dados``")
                     streamlit.info("""
                     Um sistema logístico permite que todas as informações importantes da empresa como produtos, fornecedores e funcionários sejam organizadas e armazenadas em um único lugar.
@@ -77,7 +77,7 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     Sendo ideal para auditorias, reuniões e análises estratégicas, facilitando o controle de resultados.
                     """)
             with column2:
-                with streamlit.expander("❌ Desvantagens"):
+                with streamlit.expander("❌ :red[Desvantagens]"):
                     streamlit.write("``Desorganização e Perda de Informações``")
                     streamlit.error("""
                     Sem um sistema, os dados da empresa costumam ficar espalhados em planilhas, anotações manuais ou arquivos soltos.
@@ -120,13 +120,13 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     Prejudicando o acompanhamento do desempenho, o planejamento estratégico e a transparência em auditorias.               
                     """)
             with streamlit.expander("Sobre nós"):
-                streamlit.header("Quem somos")
+                streamlit.subheader(":green[Quem somos]", divider="green")
                 streamlit.write(
                 """
                 ✔️``r4gd3j7``                
                 """)
             with streamlit.expander("Contato"):
-                streamlit.header("Formulário para contato")
+                streamlit.subheader(":green[Formulário para contato]", divider="green")
                 streamlit.text_input(
                     label="Nome completo",
                     type="default",
