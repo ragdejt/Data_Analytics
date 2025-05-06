@@ -1,9 +1,8 @@
 import streamlit
 from src.sql.base import create_table
-from src.utils.constants import *
 from src.functions.streamlit import streamlit_page
-from src.functions.plotly import Graph2dLine, GraphPizza
-from src.graphs.graph_tmd import Graph_TMD
+from src.utils.constants import SCRIPT_FOLDER, SQL_FOLDER, EXCEL_FOLDER
+
 DataAnalytics = streamlit_page(
     opcao_barra_lateral=[],
     icone_da_pagina=":material/info:"
