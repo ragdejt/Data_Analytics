@@ -32,7 +32,6 @@ def streamlit_page(
         options=opcao_barra_lateral,
         index=None,
         placeholder="DataAnalytics")
-        streamlit.sidebar.divider()
         match option:
             case "Adicionar":
                 streamlit.divider()

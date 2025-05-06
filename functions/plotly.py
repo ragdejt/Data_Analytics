@@ -40,7 +40,7 @@ def Graph3dLine(
     )
     return graph
 
-def Graph2dPizza(
+def GraphPizza(
         df:pandas.DataFrame,
         names:str,
         values:str,

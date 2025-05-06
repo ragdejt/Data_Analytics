@@ -2,8 +2,8 @@ import streamlit
 from sql.base import create_table
 from utils.constants import *
 from functions.streamlit import streamlit_page
-from functions.plotly import Graph2dLine, Graph2dPizza
-
+from functions.plotly import Graph2dLine, GraphPizza
+from graphs.graph_tmd import Graph_TMD
 DataAnalytics = streamlit_page(
     opcao_barra_lateral=[],
     icone_da_pagina=":material/info:"
@@ -156,59 +156,43 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
             
             streamlit.header(":green[Graficos de desempenho de processos logisticos]", divider="green")
             with streamlit.expander("Graficos"):
-
-                streamlit.write("``TMD - Tempo Médio de Descarga``")
-                GRAFICO_TMD_DATA={
-                    "Meses":MONTHS,
-                    "Ultra Congelado":[81,90,10,19,52,10,25,37,41,56,68,74],
-                    "Congelado":[10,25,37,41,56,68,74,81,90,10,19,52],
-                    "Resfriado":[25,37,41,56,68,74,81,81,90,10,19,76],
-                    "Seco":[37,41,56,68,74,81,90,20,25,37,41, 45]
-                }
                 
-                graph_tmd_2dpie = Graph2dPizza(
-                    df=GRAFICO_TMD_DATA,
-                    names=["Seco", "Resfriado", "Congelado", "Ultra Congelado"],
-                    values=[10,25,37,41],
-                    titulo="Grafico Pizza",
-                    subtitulo="Tempo Médio de Descarga"
-                )
-                graph_tmd_2dpie.update_layout(
-                    yaxis_title="Minutos",
-                    xaxis_title="Meses"
-                )
-                streamlit.plotly_chart(graph_tmd_2dpie)
-
-                graph_tmd_2dline = Graph2dLine(
-                    df=GRAFICO_TMD_DATA,
-                    X="Meses",
-                    Y=["Ultra Congelado","Congelado", "Resfriado", "Seco"],
-                    titulo="Grafico Linha",
-                    subtitulo="Tempo Médio de Descarga"
-                )
-                graph_tmd_2dline.update_layout(
-                    yaxis_title="Minutos",
-                    xaxis_title="Meses"
-                )
-                streamlit.plotly_chart(graph_tmd_2dline)
-
+                # Graficos TMD.
+                streamlit.subheader(":green[``TMD`` - Tempo Médio de Descarga]", divider="green")
                 streamlit.info("Identifica gargalos no processo de descarregamento.")
+
+
                 streamlit.divider()
-                streamlit.write("``Número de Veículos Atendidos por Hora/Dia``")
-                data2={
-                    "X":MONTHS,
-                    "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
-                }
-                graph2 = Graph2dLine(
-                    df=data2,
-                    X="X",
-                    Y="Y",
-                    titulo="Grafico VAD",
-                    subtitulo="Número de Veículos Atendidos por Dia"
-                )
-                streamlit.plotly_chart(graph2)
+
+                # Graficos VAM.
+                streamlit.subheader(":green[``VAM`` - Veículos Atendidos por Mês]", divider="green")
                 streamlit.info("Mostra se a equipe/doca está operando em ritmo ideal.")
+
+
                 streamlit.divider()
+
+                # Grafico TMC.
+                streamlit.subheader(":green[``TMC`` - Tempo Médio de Conferência]", divider="green")
+                streamlit.info("Pode revelar lentidão em processos de conferência")
+
+
+                streamlit.divider()
+
+                # Grafico POE.
+                streamlit.subheader(":green[``POE`` - Produtividade por Operador de Equipe]", divider="green")
+                streamlit.info("Ajuda a identificar colaboradores com baixa ou alta performance.")
+
+
+                streamlit.divider()
+
+                # Grafico TUA.
+                streamlit.subheader(":green[``TUA`` - Taxa de Utilização de Agendamentos]", divider="green")
+                streamlit.info("Compara agendamentos previstos com os realizados. Alta taxa pode indicar boa aderência.")
+
+
+                streamlit.divider()
+
+                #
                 streamlit.write("``Atrasos no Agendamento``")
                 data3={
                     "X":MONTHS,
@@ -237,23 +221,7 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                     subtitulo="Taxa de Rejeição no Recebimento"
                 )
                 streamlit.plotly_chart(graph4)
-                streamlit.info("Afeta a qualidade do estoque e pode indicar problemas no transporte.")
-                streamlit.divider()
-                streamlit.write("``TMC - Tempo Médio de Conferência``")
-                data5={
-                    "X":MONTHS,
-                    "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
-                }
-                graph5 = Graph2dLine(
-                    df=data5,
-                    X="X",
-                    Y="Y",
-                    titulo="Grafico TMC",
-                    subtitulo="Tempo Médio de Conferência"
-                )
-                streamlit.plotly_chart(graph5)
-                streamlit.info("Pode revelar lentidão em processos de conferência")
-                streamlit.divider()
+
                 streamlit.write("``Tempo de Espera na Fila de Descarga``")
                 data6={
                     "X":MONTHS,
@@ -299,21 +267,9 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                 streamlit.plotly_chart(graph8)
                 streamlit.info("Mede quanto tempo as docas estão ocupadas, útil para balancear turnos e recursos.")
                 streamlit.divider()
-                streamlit.write("``Produtividade por Operador ou Equipe``")
-                data9={
-                    "X":MONTHS,
-                    "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
-                }
-                graph9 = Graph2dLine(
-                    df=data9,
-                    X="X",
-                    Y="Y",
-                    titulo="Grafico PP-E",
-                    subtitulo="Produtividade por Operador ou Equipe"
-                )
-                streamlit.plotly_chart(graph9)
-                streamlit.info("Ajuda a identificar colaboradores com baixa ou alta performance.")
-                streamlit.divider()
+
+
+                #
                 streamlit.write("``Tempo Médio de Abertura de Portão até a Doca``")
                 data10={
                     "X":MONTHS,
@@ -329,21 +285,8 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
                 streamlit.plotly_chart(graph10)
                 streamlit.info("Pode revelar gargalos no acesso interno ao CD.")
                 streamlit.divider()
-                streamlit.write("``Taxa de Utilização de Agendamentos``")
-                data11={
-                    "X":MONTHS,
-                    "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
-                }
-                graph11 = Graph2dLine(
-                    df=data11,
-                    X="X",
-                    Y="Y",
-                    titulo="Grafico TUA",
-                    subtitulo="Taxa de Utilização de Agendamentos"
-                )
-                streamlit.plotly_chart(graph11)
-                streamlit.info("Compara agendamentos previstos com os realizados. Alta taxa pode indicar boa aderência.")
-                streamlit.divider()
+
+
                 streamlit.write("``Desvios de Janela de Agendamento (Adiantos/Atrasos)``")
                 data12={
                     "X":MONTHS,
