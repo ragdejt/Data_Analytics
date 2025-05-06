@@ -2,7 +2,7 @@ import streamlit
 from sql.base import create_table
 from utils.constants import *
 from functions.streamlit import streamlit_page
-from functions.plotly import Graph2dLine
+from functions.plotly import Graph2dLine, Graph2dPizza
 
 DataAnalytics = streamlit_page(
     opcao_barra_lateral=[],
@@ -156,19 +156,42 @@ if "login" in streamlit.session_state and streamlit.session_state["login"]:
             
             streamlit.header(":green[Graficos de desempenho de processos logisticos]", divider="green")
             with streamlit.expander("Graficos"):
+
                 streamlit.write("``TMD - Tempo Médio de Descarga``")
-                data1={
-                    "X":MONTHS,
-                    "Y":[1,2,3,4,5,6,7,8,9,10,11,12]
+                GRAFICO_TMD_DATA={
+                    "Meses":MONTHS,
+                    "Ultra Congelado":[81,90,10,19,52,10,25,37,41,56,68,74],
+                    "Congelado":[10,25,37,41,56,68,74,81,90,10,19,52],
+                    "Resfriado":[25,37,41,56,68,74,81,81,90,10,19,76],
+                    "Seco":[37,41,56,68,74,81,90,20,25,37,41, 45]
                 }
-                graph1 = Graph2dLine(
-                    df=data1,
-                    X="X",
-                    Y="Y",
-                    titulo="Grafico TMD",
+                
+                graph_tmd_2dpie = Graph2dPizza(
+                    df=GRAFICO_TMD_DATA,
+                    names=["Seco", "Resfriado", "Congelado", "Ultra Congelado"],
+                    values=[10,25,37,41],
+                    titulo="Grafico Pizza",
                     subtitulo="Tempo Médio de Descarga"
                 )
-                streamlit.plotly_chart(graph1)
+                graph_tmd_2dpie.update_layout(
+                    yaxis_title="Minutos",
+                    xaxis_title="Meses"
+                )
+                streamlit.plotly_chart(graph_tmd_2dpie)
+
+                graph_tmd_2dline = Graph2dLine(
+                    df=GRAFICO_TMD_DATA,
+                    X="Meses",
+                    Y=["Ultra Congelado","Congelado", "Resfriado", "Seco"],
+                    titulo="Grafico Linha",
+                    subtitulo="Tempo Médio de Descarga"
+                )
+                graph_tmd_2dline.update_layout(
+                    yaxis_title="Minutos",
+                    xaxis_title="Meses"
+                )
+                streamlit.plotly_chart(graph_tmd_2dline)
+
                 streamlit.info("Identifica gargalos no processo de descarregamento.")
                 streamlit.divider()
                 streamlit.write("``Número de Veículos Atendidos por Hora/Dia``")

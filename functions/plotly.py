@@ -39,3 +39,19 @@ def Graph3dLine(
         markers=True
     )
     return graph
+
+def Graph2dPizza(
+        df:pandas.DataFrame,
+        names:str,
+        values:str,
+        titulo:str,
+        subtitulo:str
+):
+    graph = plotly.express.pie(
+        data_frame=df,
+        names=names,
+        values=values,
+        title=titulo,
+        subtitle=subtitulo
+    )
+    return graph
