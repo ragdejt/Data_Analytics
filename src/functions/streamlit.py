@@ -22,7 +22,22 @@ def streamlit_page(
         layout=layout_da_pagina,
         initial_sidebar_state="auto"
     )
+    streamlit.markdown(
+        """
+        <style>
 
+        .stMainMenu {
+            display:none;
+        }
+
+        .stDecoration {
+            display:none;
+        }
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     streamlit.title(f":green[{titulo_da_pagina}]")
 
     if "login" in streamlit.session_state and streamlit.session_state["login"]:
