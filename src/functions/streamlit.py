@@ -20,18 +20,26 @@ def streamlit_page(
         page_title=titulo_da_pagina,
         page_icon=icone_da_pagina,
         layout=layout_da_pagina,
-        
-        initial_sidebar_state=status_barra_lateral,
+        initial_sidebar_state="auto"
     )
 
     streamlit.title(f":green[{titulo_da_pagina}]")
 
     if "login" in streamlit.session_state and streamlit.session_state["login"]:
-        option = streamlit.sidebar.selectbox(
-        label=titulo_da_pagina,
-        options=opcao_barra_lateral,
-        index=None,
-        placeholder="DataAnalytics")
+        with streamlit.sidebar:
+            option = streamlit.selectbox(
+                label=titulo_da_pagina,
+                options=opcao_barra_lateral,
+                index=None,
+                placeholder="DataAnalytics"
+            )
+
+            if streamlit.button("Desconectar", icon=":material/logout:", use_container_width=True):
+                print("Disconnecting! [...]")            
+                streamlit.session_state["login"] = False
+                streamlit.rerun()
+
+
         match option:
             case "Adicionar":
                 streamlit.divider()
@@ -54,16 +62,13 @@ def streamlit_page(
                 query = f"SELECT * FROM {titulo_da_pagina}"
                 df = pandas.read_sql_query(sql=text(query), con=engine)
                 streamlit.dataframe(df)
-
-
-        if streamlit.sidebar.button("Desconectar", icon=":material/logout:", use_container_width=True):
-            print("Disconnecting! [...]")            
-            streamlit.session_state["login"] = False
-            streamlit.rerun()
         return option
-    else:
-        streamlit.session_state["usuario"] = None
 
+
+    else:
+
+
+        streamlit.session_state["usuario"] = None
         streamlit.title("``Sessão não autenticada!``")
         streamlit.info("""
         1. Você não possui permissão para acessar esta página!
@@ -75,11 +80,19 @@ def streamlit_page(
         with streamlit.expander("Iniciar sessão", expanded=True):
             usuario = streamlit.text_input("Usuario", placeholder="Digite o nome de usuario")
             senha = streamlit.text_input("Senha", type="password", placeholder="Digite a senha de usuario")
-    
+
             if streamlit.button("Conectar", icon=":material/login:", use_container_width=True):
                 streamlit.session_state["login"] = True
                 streamlit.session_state["usuario"] = usuario
                 streamlit.rerun()
+
+        with streamlit.expander("Cadastrar Novo usuario"):
+            username = streamlit.text_input(label="Novo Usuario", placeholder="Digite o nome de usuario")
+            username = streamlit.text_input(label="E-mail", placeholder="Digite o email do usuario")
+            password = streamlit.text_input(label="Nova Senha ", placeholder="Digite a senha", type="password")
+            password = streamlit.text_input(label="Repita Senha ", placeholder="Digite a senha novamente", type="password")
+            if streamlit.button("Cadastrar", icon=":material/checkbook:", use_container_width=True):
+                pass
 
         with streamlit.expander("Entre em contato com o administrador do sistema caso acredite que isso seja um erro."):
             streamlit.subheader(":green[Formulário para contato]", divider="green")
