@@ -1,11 +1,11 @@
 import streamlit
-from functions.streamlit import streamlit_page
+from src.functions.streamlit import streamlit_page
 
 from src.utils.constants import *
 
-estoques = streamlit_page(titulo_da_pagina="Estoques")
+devolucoes = streamlit_page(titulo_da_pagina="Devoluções")
 
-match estoques:
+match devolucoes:
     case "Adicionar":
         pass
     case "Remover":

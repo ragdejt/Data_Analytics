@@ -1,11 +1,11 @@
 import streamlit
-from functions.streamlit import streamlit_page
+from src.functions.streamlit import streamlit_page
 
 from src.utils.constants import *
 
-devolucoes = streamlit_page(titulo_da_pagina="Devoluções")
+conferencias = streamlit_page(titulo_da_pagina="Conferências")
 
-match devolucoes:
+match conferencias:
     case "Adicionar":
         pass
     case "Remover":

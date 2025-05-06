@@ -1,8 +1,8 @@
 import pandas
 import streamlit
 from sqlalchemy import text
-from sql.base import engine
-from utils.constants import *
+from src.sql.base import engine
+from src.utils.constants import *
 from typing import Optional, Literal, List
 
 def streamlit_page(

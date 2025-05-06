@@ -1,6 +1,6 @@
 import streamlit
-from functions.streamlit import streamlit_page
-from sql.base import add_agendamento, get_suppliers_id, session, Agendamentos
+from src.functions.streamlit import streamlit_page
+from src.sql.base import add_agendamento, get_suppliers_id, session, Agendamentos
 from src.utils.constants import *
 agendamentos = streamlit_page(
     titulo_da_pagina="Agendamentos",

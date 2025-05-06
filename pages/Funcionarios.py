@@ -1,7 +1,7 @@
 import streamlit
 from src.utils.constants import *
-from functions.streamlit import streamlit_page
-from sql.base import add_funcionario
+from src.functions.streamlit import streamlit_page
+from src.sql.base import add_funcionario
 
 funcionarios = streamlit_page(
     titulo_da_pagina="Funcionarios"

@@ -1,6 +1,6 @@
 import streamlit
-from sql.base import add_fornecedores
-from functions.streamlit import streamlit_page
+from src.sql.base import add_fornecedores
+from src.functions.streamlit import streamlit_page
 from src.utils.constants import *
 fornecedores = streamlit_page(
     titulo_da_pagina="Fornecedores"
