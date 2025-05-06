@@ -1,4 +1,4 @@
-from utils.constants import SQL_FOLDER
+from src.utils.constants import SQL_FOLDER
 from sqlalchemy.exc import PendingRollbackError
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import create_engine, Column, String, Integer

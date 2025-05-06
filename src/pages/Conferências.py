@@ -1,7 +1,7 @@
 import streamlit
 from functions.streamlit import streamlit_page
 
-from utils.constants import *
+from src.utils.constants import *
 
 conferencias = streamlit_page(titulo_da_pagina="Conferências")
 

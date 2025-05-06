@@ -1,5 +1,5 @@
 import streamlit
-from utils.constants import *
+from src.utils.constants import *
 from functions.streamlit import streamlit_page
 clientes = streamlit_page(
     titulo_da_pagina="Clientes"

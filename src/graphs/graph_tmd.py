@@ -1,5 +1,5 @@
 import streamlit
-from utils.constants import MONTHS
+from src.utils.constants import MONTHS
 from functions.plotly import GraphPizza, Graph2dLine
 
 def Graph_TMD():

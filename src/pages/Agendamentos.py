@@ -1,7 +1,7 @@
 import streamlit
 from functions.streamlit import streamlit_page
 from sql.base import add_agendamento, get_suppliers_id, session, Agendamentos
-from utils.constants import *
+from src.utils.constants import *
 agendamentos = streamlit_page(
     titulo_da_pagina="Agendamentos",
     icone_da_pagina=":material/calendar_month:"
